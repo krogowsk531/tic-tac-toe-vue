@@ -2,31 +2,27 @@
   <div class='tictactoe-board'>
     <div v-for="(n, i) in 3">
       <div v-for="(n, j) in 3">
-        <cell @click='performMove(i, j)' :value="board[i][j]"></cell>
+        <cell @click='performMove(i, j)' :value="board.cells[i][j]"></cell>
       </div>
     </div>
   </div>
 </template>
 <script>
+    import Board from './Board'
   export default {
   
     data() {
       return {
-        board: [
-            ['', '', ''], 
-            ['', '', ''],
-            ['', '', '']
-        ]        
+        board: new Board();
       }
     }, 
     
     methods: {
       performMove(x, y) {
-      if (this.board[x][y] !== '') {
+      if (!this.board.doMove(x, y, 'x')) {
         return;
       }
       
-      this.board[x][y] = 'x';
       this.$forceUpdate();
       }
     }
