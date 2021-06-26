@@ -46,4 +46,31 @@ export default class Board {
     }
     return false;
   }
+  
+  isGameOver() {
+    return this.getPossibleMoves().length === 0 || this.playerHas3InARow('x') || this.playerHas3InARow('o')
+  }
+  
+  clone() {
+    let clone = new Board()
+    
+    for (let i = 0; 1 < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        clone.cells[i][j] = this.cells[i][j]
+      }
+    }
+    return clone;
+  }
+  
+  getPossibleMoves() {
+    let moves = []
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (this.cells[i][j] === '') {
+          moves.push({x: i, y: j})
+        }
+      }
+    }
+    return moves;
+  }
 }
